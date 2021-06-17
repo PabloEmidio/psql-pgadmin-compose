@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  postdb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234321
+    container_name: psqldb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - pgadmin-network
+
+  pg_admin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "8889:80"
+    environment:
+      GUNICORN_THREADS: 1
+      PGADMIN_DEFAULT_EMAIL: pgadmin@email.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    networks:
+      - pgadmin-network
+    depends_on: 
+      - postdb
+
+
+networks:
+  pgadmin-network:
+    driver: bridge
+
+volumes:
+  db-data: {}
