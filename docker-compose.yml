@@ -20,7 +20,6 @@ services:
     ports:
       - "8889:80"
     environment:
-      GUNICORN_THREADS: 1
       PGADMIN_DEFAULT_EMAIL: pgadmin@email.com
       PGADMIN_DEFAULT_PASSWORD: pgadmin
     networks:
